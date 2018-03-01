@@ -12,7 +12,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>600</width>
+    <width>670</width>
     <height>400</height>
    </size>
   </property>
@@ -47,7 +47,7 @@
          <enum>QLayout::SetMaximumSize</enum>
         </property>
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="Filter">
           <property name="maximumSize">
            <size>
             <width>250</width>
@@ -60,7 +60,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="Search">
           <property name="maximumSize">
            <size>
             <width>250</width>
@@ -70,7 +70,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QListWidget" name="listWidget">
+         <widget class="QListWidget" name="ClientList">
           <property name="maximumSize">
            <size>
             <width>250</width>
@@ -80,7 +80,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="addClient">
           <property name="maximumSize">
            <size>
             <width>250</width>
@@ -93,7 +93,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="ClientEdit">
           <property name="maximumSize">
            <size>
             <width>250</width>
@@ -143,7 +143,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="label_2">
+         <widget class="QLabel" name="logoBlades">
           <property name="minimumSize">
            <size>
             <width>220</width>
@@ -159,10 +159,13 @@
           <property name="text">
            <string/>
           </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="manageProducts">
           <property name="minimumSize">
            <size>
             <width>150</width>
@@ -181,7 +184,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_5">
+         <widget class="QPushButton" name="manageServices">
           <property name="minimumSize">
            <size>
             <width>150</width>
@@ -233,7 +236,7 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QPushButton" name="pushButton_4">
+         <widget class="QPushButton" name="addVisit">
           <property name="minimumSize">
            <size>
             <width>100</width>

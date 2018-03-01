@@ -2,6 +2,7 @@
 #define VISIT_H
 
 #include <QList>
+#include <QDate>
 
 class Service;
 
@@ -11,14 +12,22 @@ public:
     Visit();
 
     double getPrice() const;
-    void setPrice(double value);
+    void setPrice(double price);
 
-    QList<Service> getServiceList() const;
+    QList<Service*> getServiceList() const;
     void addService(Service *service);
 
+    QDate getVisitDate() const;
+    void setVisitDate(const QDate &date);
+
+    QString getVisitDateString() const;
+    void setVisitDateString(const QString &date);
+
 private:
-    double price;
-    QList<Service> *ServiceList;
+    double visitPrice=0;
+    QDate visitDate;
+    QString visitDateString = "";
+    QList<Service*> ServiceList;
 };
 
 #endif // VISIT_H

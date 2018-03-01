@@ -12,26 +12,30 @@ public:
     Client();
 
     QString getFirstName() const;
-    void setFirstName(const QString &value);
+    void setFirstName(const QString &firstname);
 
     QString getLastName() const;
-    void setLastName(const QString &value);
+    void setLastName(const QString &lastname);
 
     QString getPhoneNumber() const;
-    void setPhoneNumber(const QString &value);
+    void setPhoneNumber(const QString &phonenumber);
 
     QString getComment() const;
-    void setComment(const QString &value);
+    void setComment(const QString &comment);
 
-    QList<Visit> getVisitList() const;
-    void addVisit(Visit *value);
+    QList<Visit*> getVisitList();
+    void addVisit(Visit *visit);
+
+    int getClientID() const;
+    void setClientID(int id);
 
 private:
-    QString FirstName;
-    QString LastName;
-    QString PhoneNumber;
-    QString Comment;
-    QList<Visit> *VisitList;
+    QString clientFirstName;
+    QString clientLastName;
+    QString clientPhoneNumber;
+    QString clientComment;
+    QList<Visit*> VisitList;
+    int clientID;
 };
 
 #endif // CLIENT_H

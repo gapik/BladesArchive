@@ -1,5 +1,8 @@
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include <QApplication>
+
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {

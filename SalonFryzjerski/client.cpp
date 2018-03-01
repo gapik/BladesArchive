@@ -1,5 +1,7 @@
 #include "client.h"
 
+#include "visit.h"
+
 Client::Client()
 {
 
@@ -7,50 +9,60 @@ Client::Client()
 
 QString Client::getFirstName() const
 {
-    return FirstName;
+    return clientFirstName;
 }
 
-void Client::setFirstName(const QString &value)
+void Client::setFirstName(const QString &firstname)
 {
-    FirstName = value;
+    clientFirstName = firstname;
 }
 
 QString Client::getLastName() const
 {
-    return LastName;
+    return clientLastName;
 }
 
-void Client::setLastName(const QString &value)
+void Client::setLastName(const QString &lastname)
 {
-    LastName = value;
+    clientLastName = lastname;
 }
 
 QString Client::getPhoneNumber() const
 {
-    return PhoneNumber;
+    return clientPhoneNumber;
 }
 
-void Client::setPhoneNumber(const QString &value)
+void Client::setPhoneNumber(const QString &phonenumber)
 {
-    PhoneNumber = value;
+    clientPhoneNumber = phonenumber;
 }
 
 QString Client::getComment() const
 {
-    return Comment;
+    return clientComment;
 }
 
-void Client::setComment(const QString &value)
+void Client::setComment(const QString &comment)
 {
-    Comment = value;
+    clientComment = comment;
 }
 
-QList<Visit> Client::getVisitList() const
+QList<Visit *> Client::getVisitList()
 {
     return VisitList;
 }
 
-void Client::addVisit(Visit *value)
+void Client::addVisit(Visit *visit)
 {
-    VisitList.append(value);
+    VisitList.append(visit);
+}
+
+int Client::getClientID() const
+{
+    return clientID;
+}
+
+void Client::setClientID(int id)
+{
+    clientID = id;
 }
