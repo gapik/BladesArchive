@@ -44,25 +44,8 @@ void ClientListReader::generateClientList()
         newClient->setComment(ClientNodes.at(4).toElement().text());
         newClient->setClientID(ClientNodes.at(0).toElement().text().toInt());
 
-//        firstNameE->setText(Firstname);
-//        surNameE->setText(Surname);
-//        phoneE->setText(PhoneNumber);
-//        commentE->setText(Comment);
-
-//        QString label = Firstname.append(" " + Surname);
-//        if (!PhoneNumber.isEmpty()){
-//            label = label.append(" (" + PhoneNumber + ")");
-//        }
-//        if (!Comment.isEmpty()){
-//            label = label.append(" [" + Comment + "]");
-//        }
-//        //qDebug() << label;
-//        model->setHorizontalHeaderItem(0, new QStandardItem(label));
-
         QDomElement Visits = ClientNodes.at(5).toElement();
         VisitListNodes = Visits.childNodes();
-
-//        model->setRowCount(VisitListNodes.count());
 
         for(int j=0;j<VisitListNodes.count();j++){
             QDomElement singleVisit = VisitListNodes.at(j).toElement();
@@ -72,25 +55,12 @@ void ClientListReader::generateClientList()
             newVisit->setPrice(VisitNodes.at(1).toElement().text().toDouble());
             newVisit->setVisitDateString(VisitNodes.at(2).toElement().text());
 
-//            QStandardItem *visitsItem = new QStandardItem( visitDate );
-//            QStandardItem *priceItem = new QStandardItem( Price );
-//            QStandardItem *emptyItem = new QStandardItem( empty );
-//            QStandardItem *emptyItem2 = new QStandardItem( empty2 );
-//            visitsItem->setEditable(false);
-//            priceItem->setEditable(false);
-//            emptyItem->setEditable(false);
-//            emptyItem2->setEditable(false);
-
             for(int p=3;p<VisitNodes.count();p++){
                 QDomElement Services = VisitNodes.at(p).toElement();
                 ProductListNodes = Services.childNodes();
 
                 Service *newService = new Service;
                 newService->setName(ProductListNodes.at(0).toElement().text());
-
-//                QStandardItem *serviceNameItem = new QStandardItem( serviceName );
-//                serviceNameItem->setEditable(false);
-//                visitsItem->appendRow( serviceNameItem );
 
                 for(int k=1;k<ProductListNodes.count();k++){
                     QDomElement singleService = ProductListNodes.at(k).toElement();
@@ -102,18 +72,6 @@ void ClientListReader::generateClientList()
                     newProduct->setAmount(ProductNodes.at(2).toElement().text().toDouble());
 
                     newService->addProduct(newProduct);
-//                    QStandardItem *productNameItem = new QStandardItem( productName );
-//                    QStandardItem *productSignatureItem = new QStandardItem( productSignature );
-//                    QStandardItem *productAmountItem = new QStandardItem( productAmount );
-//                    productNameItem->setEditable(false);
-//                    productSignatureItem->setEditable(false);
-//                    productAmountItem->setEditable(false);
-
-//                    serviceNameItem->appendRow(QList<QStandardItem *>() << productNameItem << productSignatureItem << productAmountItem );
-//                    model->setItem(j, 0, visitsItem);
-//                    model->setItem(j, 1, emptyItem);
-//                    model->setItem(j, 2, emptyItem2);
-//                    model->setItem(j, 3, priceItem);
                 }
                 newVisit->addService(newService);
             }
@@ -121,7 +79,6 @@ void ClientListReader::generateClientList()
         }
         clientsList.append(newClient);
     }
-//    ui->treeView->setModel(model);
 }
 
 QList<Client *> ClientListReader::getClientsList() const

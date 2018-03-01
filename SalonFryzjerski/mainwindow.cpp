@@ -117,7 +117,7 @@ void MainWindow::on_ClientList_itemSelectionChanged()
                     for(int k=0;k<products.count();k++){
                         QStandardItem *productNameItem = new QStandardItem( products.at(k)->getName() );
                         QStandardItem *productSignatureItem = new QStandardItem( products.at(k)->getSignature() );
-                        QStandardItem *productAmountItem = new QStandardItem( products.at(k)->getAmount() );
+                        QStandardItem *productAmountItem = new QStandardItem( QString::number(products.at(k)->getAmount()) );
                         productNameItem->setEditable(false);
                         productSignatureItem->setEditable(false);
                         productAmountItem->setEditable(false);
