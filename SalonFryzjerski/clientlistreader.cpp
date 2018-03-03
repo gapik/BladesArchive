@@ -86,6 +86,11 @@ QList<Client *> ClientListReader::getClientsList() const
     return clientsList;
 }
 
+void ClientListReader::addNewClientToList(Client *newClient)
+{
+    clientsList.append(newClient);
+}
+
 QDomDocument ClientListReader::getXMLDatabase() const
 {
     return XMLDatabase;

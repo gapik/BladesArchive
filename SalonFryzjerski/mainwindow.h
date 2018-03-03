@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "addnewclient.h"
 
 #include "client.h"
 #include "clientlistreader.h"
@@ -28,8 +29,11 @@ private slots:
 
     void on_ClientList_itemSelectionChanged();
 
+    void on_addClient_clicked();
+
 private:
     Ui::MainWindow *ui;
+    addNewClient addNewClientDialog;
     ClientListReader *clientsReader;
 
     //Has to be generalized...

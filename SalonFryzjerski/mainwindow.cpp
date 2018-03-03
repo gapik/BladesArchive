@@ -33,11 +33,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->treeView->setColumnWidth(2,75);
     ui->treeView->setColumnWidth(3,75);
 
+    addNewClientDialog.setMainUi(ui);
+
     ClientListReader *reader = new ClientListReader;
     setClientsReader(reader);
 
-    clientFilter filter;
-    filter.loadClientsToFilter(reader->getClientsList(),ui);
+    addNewClientDialog.setReader(reader);
+
+    clientFilter *filter = new clientFilter;
+    filter->loadClientsToFilter(reader->getClientsList(),ui);
+    addNewClientDialog.setFilter(filter);
+
 }
 
 MainWindow::~MainWindow()
@@ -132,4 +138,10 @@ void MainWindow::on_ClientList_itemSelectionChanged()
     }
     ui->treeView->setModel(model);
     ui->treeView->expandAll();
+}
+void MainWindow::on_addClient_clicked()
+{
+    addNewClientDialog.show();
+    addNewClientDialog.setWindowIcon(QIcon(icoPath));
+    addNewClientDialog.setWindowTitle("Salon Fryzjerski BLADES - dodawanie nowego klienta");
 }

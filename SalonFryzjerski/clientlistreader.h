@@ -11,6 +11,7 @@ public:
     ClientListReader();
     QDomDocument getXMLDatabase() const;
     QList<Client*> getClientsList() const;
+    void addNewClientToList(Client *newClient);
 
 private:
     QString XMLpath = "D:/code/Qt/SalonBlades/SalonFryzjerski/Klienci.xml";

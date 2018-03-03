@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     service.cpp \
     product.cpp \
     clientlistreader.cpp \
-    clientfilter.cpp
+    clientfilter.cpp \
+    addnewclient.cpp
 
 HEADERS  += mainwindow.h \
     client.h \
@@ -27,6 +28,8 @@ HEADERS  += mainwindow.h \
     service.h \
     product.h \
     clientlistreader.h \
-    clientfilter.h
+    clientfilter.h \
+    addnewclient.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    addnewclient.ui
