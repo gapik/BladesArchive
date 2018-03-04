@@ -29,6 +29,8 @@ public:
     int getClientID() const;
     void setClientID(int id);
 
+    bool operator==(const Client &Client);
+
 private:
     QString clientFirstName;
     QString clientLastName;

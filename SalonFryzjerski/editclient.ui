@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>addNewClient</class>
- <widget class="QDialog" name="addNewClient">
-  <property name="windowModality">
-   <enum>Qt::NonModal</enum>
-  </property>
+ <class>editClient</class>
+ <widget class="QDialog" name="editClient">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,12 +9,6 @@
     <width>400</width>
     <height>150</height>
    </rect>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
@@ -37,10 +28,10 @@
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>9</x>
-     <y>9</y>
+     <x>10</x>
+     <y>8</y>
      <width>381</width>
-     <height>139</height>
+     <height>141</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
@@ -168,7 +159,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="AddClientButton">
+       <widget class="QPushButton" name="UpdateClientButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -176,7 +167,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Dodaj Klienta</string>
+         <string>Aktualizuj dane Klienta</string>
         </property>
        </widget>
       </item>

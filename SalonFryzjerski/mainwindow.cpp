@@ -1,12 +1,15 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "ui_editclient.h"
 
 #include <QStandardItemModel>
 #include <QDebug>
 #include <QString>
+#include <QMessageBox>
 
 #include "clientlistreader.h"
 #include "clientfilter.h"
+#include "client.h"
 #include "visit.h"
 #include "service.h"
 #include "product.h"
@@ -33,17 +36,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->treeView->setColumnWidth(2,75);
     ui->treeView->setColumnWidth(3,75);
 
-    addNewClientDialog.setMainUi(ui);
+    ui->ClientList->setSelectionMode(QAbstractItemView::SingleSelection);
+
 
     ClientListReader *reader = new ClientListReader;
     setClientsReader(reader);
-
-    addNewClientDialog.setReader(reader);
-
     clientFilter *filter = new clientFilter;
     filter->loadClientsToFilter(reader->getClientsList(),ui);
+
+    addNewClientDialog.setMainUi(ui);
+    addNewClientDialog.setReader(reader);
     addNewClientDialog.setFilter(filter);
 
+    editClientDialog.setMainUi(ui);
+    editClientDialog.setReader(reader);
+    editClientDialog.setFilter(filter);
 }
 
 MainWindow::~MainWindow()
@@ -83,6 +90,7 @@ void MainWindow::setClientsReader(ClientListReader *reader)
 
 void MainWindow::on_ClientList_itemSelectionChanged()
 {
+    firstSelection=true;
     QString choosenClient = ui->ClientList->currentItem()->text();
     QStringList ClientID = choosenClient.split(' ');
 
@@ -141,7 +149,36 @@ void MainWindow::on_ClientList_itemSelectionChanged()
 }
 void MainWindow::on_addClient_clicked()
 {
-    addNewClientDialog.show();
+    addNewClientDialog.setWindowFlags(Qt::WindowCloseButtonHint);
     addNewClientDialog.setWindowIcon(QIcon(icoPath));
-    addNewClientDialog.setWindowTitle("Salon Fryzjerski BLADES - dodawanie nowego klienta");
+    addNewClientDialog.setWindowTitle("Salon Fryzjerski BLADES - nowy Klient");
+    addNewClientDialog.show();
+}
+
+void MainWindow::on_ClientEdit_clicked()
+{
+    if(firstSelection==false){
+        QMessageBox::information(this,"Wskaż Klienta","Żaden Klient nie został wybrany");
+    }else{
+        QStringList clientToEditName= ui->ClientList->selectedItems().at(0)->text().split(' ');
+        QList<Client*> clients=getClientsReader()->getClientsList();
+
+        for (int i=0;i<clients.count();i++){
+            if (clients.at(i)->getFirstName() == clientToEditName.at(0)
+                    && clients.at(i)->getLastName() == clientToEditName.at(1)){
+                editClientDialog.setClientToEdit(clients.at(i));
+                editClientDialog.setWindowFlags(Qt::WindowCloseButtonHint);
+                editClientDialog.setWindowIcon(QIcon(icoPath));
+                editClientDialog.setWindowTitle("Salon Fryzjerski BLADES - edycja danych Klienta");
+                editClientDialog.show();
+                editClientDialog.getUi()->NameField->setText(editClientDialog.getClientToEdit()->getFirstName());
+                editClientDialog.getUi()->LastnameField->setText(editClientDialog.getClientToEdit()->getLastName());
+                editClientDialog.getUi()->PhoneField->setText(editClientDialog.getClientToEdit()->getPhoneNumber());
+                editClientDialog.getUi()->CommentField->setText(editClientDialog.getClientToEdit()->getComment());
+                editClientDialog.setClientToEditIndex(clients.at(i)->getClientID());
+                break;
+            }
+        }
+    }
+
 }

@@ -91,6 +91,14 @@ void ClientListReader::addNewClientToList(Client *newClient)
     clientsList.append(newClient);
 }
 
+//void ClientListReader::updateClient(Client *newClient, int index)
+//{
+//    clientsList.at(index)->setFirstName(newClient->getFirstName());
+//    clientsList.at(index)->setLastName(newClient->getLastName());
+//    clientsList.at(index)->setPhoneNumber(newClient->getPhoneNumber());
+//    clientsList.at(index)->setFirstName(newClient->getFirstName());
+//}
+
 QDomDocument ClientListReader::getXMLDatabase() const
 {
     return XMLDatabase;
