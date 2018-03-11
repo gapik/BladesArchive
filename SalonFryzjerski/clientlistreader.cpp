@@ -3,8 +3,6 @@
 #include <QFile>
 #include <QDebug>
 #include <QtXml/QDomDocument>
-//#include <QXmlStreamReader>
-//#include <QtCore>
 
 #include "client.h"
 #include "visit.h"

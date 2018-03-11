@@ -8,6 +8,7 @@
 #include <QMessageBox>
 
 #include "clientlistreader.h"
+#include "servicelistreader.h"
 #include "clientfilter.h"
 #include "client.h"
 #include "visit.h"
@@ -44,13 +45,18 @@ MainWindow::MainWindow(QWidget *parent) :
     clientFilter *filter = new clientFilter;
     filter->loadClientsToFilter(reader->getClientsList(),ui);
 
+    ServiceListReader *serviceReader = new ServiceListReader;
+    setServiceReader(serviceReader);
+    qDebug() << "check1";
+
     addNewClientDialog.setMainUi(ui);
-    addNewClientDialog.setReader(reader);
+    addNewClientDialog.setReader(getClientsReader());
     addNewClientDialog.setFilter(filter);
 
     editClientDialog.setMainUi(ui);
-    editClientDialog.setReader(reader);
+    editClientDialog.setReader(getClientsReader());
     editClientDialog.setFilter(filter);
+
 }
 
 MainWindow::~MainWindow()
@@ -86,6 +92,16 @@ ClientListReader *MainWindow::getClientsReader() const
 void MainWindow::setClientsReader(ClientListReader *reader)
 {
     clientsReader = reader;
+}
+
+ServiceListReader *MainWindow::getServiceReader() const
+{
+    return servicesReader;
+}
+
+void MainWindow::setServiceReader(ServiceListReader *reader)
+{
+    servicesReader = reader;
 }
 
 void MainWindow::on_ClientList_itemSelectionChanged()
@@ -152,6 +168,8 @@ void MainWindow::on_addClient_clicked()
     addNewClientDialog.setWindowFlags(Qt::WindowCloseButtonHint);
     addNewClientDialog.setWindowIcon(QIcon(icoPath));
     addNewClientDialog.setWindowTitle("Salon Fryzjerski BLADES - nowy Klient");
+    addNewClientDialog.setWindowFlags(Qt::WindowStaysOnTopHint);
+    addNewClientDialog.setModal(true);
     addNewClientDialog.show();
 }
 
@@ -170,6 +188,8 @@ void MainWindow::on_ClientEdit_clicked()
                 editClientDialog.setWindowFlags(Qt::WindowCloseButtonHint);
                 editClientDialog.setWindowIcon(QIcon(icoPath));
                 editClientDialog.setWindowTitle("Salon Fryzjerski BLADES - edycja danych Klienta");
+                editClientDialog.setWindowFlags(Qt::WindowStaysOnTopHint);
+                editClientDialog.setModal(true);
                 editClientDialog.show();
                 editClientDialog.getUi()->NameField->setText(editClientDialog.getClientToEdit()->getFirstName());
                 editClientDialog.getUi()->LastnameField->setText(editClientDialog.getClientToEdit()->getLastName());
@@ -181,4 +201,18 @@ void MainWindow::on_ClientEdit_clicked()
         }
     }
 
+}
+
+void MainWindow::on_manageServices_clicked()
+{
+    manageServicesDialogObj.setServicesReader(getServiceReader());
+    manageServicesDialogObj.loadServiceList();
+    manageServicesDialogObj.setWindowFlags(Qt::WindowCloseButtonHint);
+    manageServicesDialogObj.setWindowIcon(QIcon(icoPath));
+    manageServicesDialogObj.setWindowTitle("Salon Fryzjerski BLADES - zarządzaj usługami");
+    manageServicesDialogObj.setWindowFlags(Qt::WindowStaysOnTopHint);
+    manageServicesDialogObj.setModal(true);
+    manageServicesDialogObj.show();
+    //add new service with QMessageBox confirmation + save xml
+    //remove service with QMessageBox confirmation + save xml
 }

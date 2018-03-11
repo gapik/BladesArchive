@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     clientlistreader.cpp \
     clientfilter.cpp \
     addnewclient.cpp \
-    editclient.cpp
+    editclient.cpp \
+    servicelistreader.cpp \
+    manageservicesdialog.cpp
 
 HEADERS  += mainwindow.h \
     client.h \
@@ -31,8 +33,11 @@ HEADERS  += mainwindow.h \
     clientlistreader.h \
     clientfilter.h \
     addnewclient.h \
-    editclient.h
+    editclient.h \
+    servicelistreader.h \
+    manageservicesdialog.h
 
 FORMS    += mainwindow.ui \
     addnewclient.ui \
-    editclient.ui
+    editclient.ui \
+    manageservicesdialog.ui

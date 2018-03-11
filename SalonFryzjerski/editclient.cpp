@@ -1,8 +1,10 @@
 #include "editclient.h"
 #include "ui_editclient.h"
+#include "mainwindow.h"
 
 #include <QMessageBox>
 #include <QDebug>
+#include <QStandardItemModel>
 
 editClient::editClient(QWidget *parent) :
     QDialog(parent),
@@ -32,19 +34,17 @@ void editClient::on_UpdateClientButton_clicked()
         QString phoneNumber=ui->PhoneField->text();
         QString comment=ui->CommentField->text();
         Client *newClient = getClientToEdit();
+        qDebug() << "id" << newClient->getClientID();
 
 //        if it duplicates another record
-        bool duplicated=false;
         for (int i=0;i<reader->getClientsList().size();i++){
             if(reader->getClientsList().at(i)->getFirstName() == firstName
                     && reader->getClientsList().at(i)->getLastName() == lastName){
-                duplicated=true;
-                break;
+                if (reader->getClientsList().at(i)->getClientID() != newClient->getClientID()){
+                    QMessageBox::information(this,"Klient już istnieje!","Klient już istnieje.");
+                    return;
+                }
             }
-        }
-        if (duplicated == true){
-            QMessageBox::information(this,"Klient już istnieje!","Klient już istnieje.");
-            return;
         }
 
 //        if there is any change
@@ -76,6 +76,13 @@ void editClient::on_UpdateClientButton_clicked()
         ui->PhoneField->clear();
         ui->CommentField->clear();
         mainui->Search->clear();
+        QStandardItemModel *def_model = new QStandardItemModel(this);
+        def_model->setColumnCount(4);
+        def_model->setHorizontalHeaderItem(0, new QStandardItem(tr("Imię i Nazwisko (numer telefonu) [UWAGI]")));
+        def_model->setHorizontalHeaderItem(1, new QStandardItem(tr("Numer Produktu")));
+        def_model->setHorizontalHeaderItem(2, new QStandardItem(tr("Ilość")));
+        def_model->setHorizontalHeaderItem(3, new QStandardItem(tr("Cena")));
+        mainui->treeView->setModel(def_model);
         close();
     }
 }

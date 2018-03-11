@@ -3,8 +3,10 @@
 #include "ui_mainwindow.h"
 
 #include "client.h"
+
 #include <QDebug>
 #include <QMessageBox>
+#include <QMainWindow>
 
 addNewClient::addNewClient(QWidget *parent) :
     QDialog(parent),
