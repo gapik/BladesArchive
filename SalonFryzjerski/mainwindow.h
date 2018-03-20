@@ -6,10 +6,12 @@
 #include "addnewclient.h"
 #include "editclient.h"
 #include "manageservicesdialog.h"
+#include "manageproducts.h"
 
 #include "client.h"
 #include "clientlistreader.h"
 #include "servicelistreader.h"
+#include "productlistreader.h"
 
 namespace Ui {
 class MainWindow;
@@ -31,6 +33,9 @@ public:
     ServiceListReader *getServiceReader() const;
     void setServiceReader(ServiceListReader *reader);
 
+    ProductListReader *getProductReader() const;
+    void setProductReader(ProductListReader *reader);
+
     Client *getClientToEdit() const;
     void setClientToEdit(Client *client);
 
@@ -42,6 +47,7 @@ private slots:
     void on_ClientEdit_clicked();
 
     void on_manageServices_clicked();
+    void on_manageProducts_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -50,8 +56,10 @@ private:
 
     ClientListReader *clientsReader;
     ServiceListReader *servicesReader;
+    ProductListReader *productsReader;
 
     manageServicesDialog manageServicesDialogObj;
+    manageProducts manageProductsDialog;
 
     //Has to be generalized...
     QString logoPath = "D:/code/Qt/SalonBlades/SalonFryzjerski/blades.jpg";

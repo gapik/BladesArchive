@@ -3,7 +3,6 @@
 #include "servicelistreader.h"
 
 #include <QDebug>
-#include <QDialogButtonBox>
 
 //#include "addnewclient.h"
 //#include "ui_addnewclient.h"
@@ -42,19 +41,41 @@ void manageServicesDialog::loadServiceList()
 
 void manageServicesDialog::on_addService_clicked()
 {
-    if (ui->newServiceName->text() == ""){
+    QString serviceToBeAdd;
+    serviceToBeAdd=ui->newServiceName->text().simplified();
+    if (serviceToBeAdd == ""){
         QMessageBox::information(this,"Podaj nazwę usługi!","Podaj nazwę usługi.");
         return;
     }
+
+    if (serviceToBeAdd.contains(" ")){
+        QStringList tmp = serviceToBeAdd.split(" ");
+        for (int i=0; i<tmp.size(); i++){
+            tmp[i]=tmp[i].toLower();
+            tmp[i]=tmp[i].replace(0, 1, tmp[i][0].toUpper());
+        }
+        serviceToBeAdd=tmp.join(" ");
+    }else if(serviceToBeAdd.contains("-")){
+        QStringList tmp = serviceToBeAdd.split("-");
+        for (int i=0; i<tmp.size(); i++){
+            tmp[i]=tmp[i].toLower();
+            tmp[i]=tmp[i].replace(0, 1, tmp[i][0].toUpper());
+        }
+        serviceToBeAdd=tmp.join("-");
+    }else {
+        serviceToBeAdd=serviceToBeAdd.toLower();
+        serviceToBeAdd.replace(0, 1, serviceToBeAdd[0].toUpper());
+    }
+
     for (int i=0;i<servicesReader->getServicesList().size();i++){
-        if (servicesReader->getServicesList().at(i)->getName() == ui->newServiceName->text()){
-            QMessageBox::information(this,"Usługa " + ui->newServiceName->text() + " już istnieje!","Usługa " + ui->newServiceName->text() + " już istnieje.");
+        if (servicesReader->getServicesList().at(i)->getName() == serviceToBeAdd){
+            QMessageBox::information(this,"Usługa \"" + serviceToBeAdd + "\" już istnieje!","Usługa \"" + serviceToBeAdd + "\" już istnieje.");
             return;
         }
     }
 
     Service *newService = new Service;
-    newService->setName(ui->newServiceName->text());
+    newService->setName(serviceToBeAdd);
     servicesReader->addNewServiceToList(newService);
     ui->servicesList->clear();
     for (int i=0;i<servicesReader->getServicesList().size();i++){
@@ -93,7 +114,9 @@ void manageServicesDialog::on_AcceptChanges_clicked()
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, "Potwierdzenie zmian.", "Czy na pewno chcesz wprowadzić zmiany w liście usług?",
                                     QMessageBox::Yes|QMessageBox::No);
+
     if (reply == QMessageBox::Yes) {
+        servicesReader->updateXML();
         this->close();
     }
 }

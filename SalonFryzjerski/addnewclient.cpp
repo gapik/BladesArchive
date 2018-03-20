@@ -28,13 +28,57 @@ void addNewClient::on_CancelButton_clicked()
 void addNewClient::on_AddClientButton_clicked()
 {
     //new to check if firstname and lastname is provided - else print messagebox
-    if(ui->NameField->text() == "" || ui->LastnameField->text() == ""){
+    QString fName;
+    fName=ui->NameField->text().simplified();
+
+    QString lName;
+    lName=ui->LastnameField->text().simplified();
+
+    if(fName == "" || lName == ""){
         QMessageBox::information(this,"Brak wymaganych danych!","Uzupełnij wymagane pola.");
     }else{
+        if (fName.contains(" ")){
+            QStringList tmp = fName.split(" ");
+            for (int i=0; i<tmp.size(); i++){
+                tmp[i]=tmp[i].toLower();
+                tmp[i]=tmp[i].replace(0, 1, tmp[i][0].toUpper());
+            }
+            fName=tmp.join(",");
+        }else if(fName.contains("-")){
+            QStringList tmp = fName.split("-");
+            for (int i=0; i<tmp.size(); i++){
+                tmp[i]=tmp[i].toLower();
+                tmp[i]=tmp[i].replace(0, 1, tmp[i][0].toUpper());
+            }
+            fName=tmp.join("-");
+        }else {
+            fName=fName.toLower();
+            fName.replace(0, 1, fName[0].toUpper());
+        }
+
+        if (lName.contains(" ")){
+            QStringList tmp = lName.split(" ");
+            for (int i=0; i<tmp.size(); i++){
+                tmp[i]=tmp[i].toLower();
+                tmp[i]=tmp[i].replace(0, 1, tmp[i][0].toUpper());
+            }
+            lName=tmp.join("-");
+        }else if(lName.contains("-")){
+            QStringList tmp = lName.split("-");
+            for (int i=0; i<tmp.size(); i++){
+                tmp[i]=tmp[i].toLower();
+                tmp[i]=tmp[i].replace(0, 1, tmp[i][0].toUpper());
+            }
+            lName=tmp.join("-");
+        }else {
+            lName=lName.toLower();
+            lName.replace(0, 1, lName[0].toUpper());
+        }
+
         bool duplicated=false;
         for (int i=0;i<reader->getClientsList().size();i++){
-            if(reader->getClientsList().at(i)->getFirstName() == ui->NameField->text()
-                    && reader->getClientsList().at(i)->getLastName() == ui->LastnameField->text()){
+            if(reader->getClientsList().at(i)->getFirstName() == fName
+                    && reader->getClientsList().at(i)->getLastName() == lName){
                 duplicated=true;
                 break;
             }
@@ -44,8 +88,8 @@ void addNewClient::on_AddClientButton_clicked()
             QMessageBox::information(this,"Klient już istnieje!","Klient już istnieje.");
         }else{
             Client *newClient = new Client;
-            newClient->setFirstName(ui->NameField->text());
-            newClient->setLastName(ui->LastnameField->text());
+            newClient->setFirstName(fName);
+            newClient->setLastName(lName);
             newClient->setPhoneNumber(ui->PhoneField->text());
             newClient->setComment(ui->CommentField->text());
             newClient->setClientID(reader->getClientsList().size());
@@ -57,6 +101,9 @@ void addNewClient::on_AddClientButton_clicked()
             ui->PhoneField->clear();
             ui->CommentField->clear();
             mainui->Search->clear();
+
+            //save xml
+
             close();
         }
     }

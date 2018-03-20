@@ -68,17 +68,6 @@ void Client::setClientID(int id)
     clientID = id;
 }
 
-bool Client::operator==(const Client &Client)
-{
-    if (this->getFirstName() == Client.getFirstName() && this->getLastName() == Client.getLastName()){
-        qDebug() << "tak";
-        return true;
-    }else{
-        qDebug() << "nie";
-        return false;
-    }
-}
-
 //bool Client::operator==(const Client &c){
 //    if (this->getFirstName() == c.getFirstName() && this->getLastName() == c.getLastName()){
 //        qDebug() << "tak";

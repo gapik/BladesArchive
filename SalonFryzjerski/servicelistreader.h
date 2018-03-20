@@ -14,6 +14,8 @@ public:
     void addNewServiceToList(Service *newService);
     void removeServiceFromList(QString name);
 
+    void updateXML();
+
 private:
     QString XMLpath = "D:/code/Qt/SalonBlades/SalonFryzjerski/Uslugi.xml";
 

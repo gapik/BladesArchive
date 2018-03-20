@@ -26,20 +26,61 @@ Ui::editClient *editClient::getUi() const
 void editClient::on_UpdateClientButton_clicked()
 {
     //new to check if firstname and lastname is provided - else print messagebox
-    if(ui->NameField->text() == "" || ui->LastnameField->text() == ""){
+    QString fName;
+    fName=ui->NameField->text().simplified();
+
+    QString lName;
+    lName=ui->LastnameField->text().simplified();
+
+    if(fName == "" || lName == ""){
         QMessageBox::information(this,"Brak wymaganych danych!","Uzupełnij wymagane pola.");
     }else{
-        QString firstName=ui->NameField->text();
-        QString lastName=ui->LastnameField->text();
+        if (fName.contains(" ")){
+            QStringList tmp = fName.split(" ");
+            for (int i=0; i<tmp.size(); i++){
+                tmp[i]=tmp[i].toLower();
+                tmp[i]=tmp[i].replace(0, 1, tmp[i][0].toUpper());
+            }
+            fName=tmp.join(",");
+        }else if(fName.contains("-")){
+            QStringList tmp = fName.split("-");
+            for (int i=0; i<tmp.size(); i++){
+                tmp[i]=tmp[i].toLower();
+                tmp[i]=tmp[i].replace(0, 1, tmp[i][0].toUpper());
+            }
+            fName=tmp.join("-");
+        }else {
+            fName=fName.toLower();
+            fName.replace(0, 1, fName[0].toUpper());
+        }
+
+        if (lName.contains(" ")){
+            QStringList tmp = lName.split(" ");
+            for (int i=0; i<tmp.size(); i++){
+                tmp[i]=tmp[i].toLower();
+                tmp[i]=tmp[i].replace(0, 1, tmp[i][0].toUpper());
+            }
+            lName=tmp.join("-");
+        }else if(lName.contains("-")){
+            QStringList tmp = lName.split("-");
+            for (int i=0; i<tmp.size(); i++){
+                tmp[i]=tmp[i].toLower();
+                tmp[i]=tmp[i].replace(0, 1, tmp[i][0].toUpper());
+            }
+            lName=tmp.join("-");
+        }else {
+            lName=lName.toLower();
+            lName.replace(0, 1, lName[0].toUpper());
+        }
+
         QString phoneNumber=ui->PhoneField->text();
         QString comment=ui->CommentField->text();
         Client *newClient = getClientToEdit();
-        qDebug() << "id" << newClient->getClientID();
 
 //        if it duplicates another record
         for (int i=0;i<reader->getClientsList().size();i++){
-            if(reader->getClientsList().at(i)->getFirstName() == firstName
-                    && reader->getClientsList().at(i)->getLastName() == lastName){
+            if(reader->getClientsList().at(i)->getFirstName() == fName
+                    && reader->getClientsList().at(i)->getLastName() == lName){
                 if (reader->getClientsList().at(i)->getClientID() != newClient->getClientID()){
                     QMessageBox::information(this,"Klient już istnieje!","Klient już istnieje.");
                     return;
@@ -49,12 +90,12 @@ void editClient::on_UpdateClientButton_clicked()
 
 //        if there is any change
         bool changed=false;
-        if(newClient->getFirstName() != firstName){
-            newClient->setFirstName(firstName);
+        if(newClient->getFirstName() != fName){
+            newClient->setFirstName(fName);
             changed=true;
         }
-        if(newClient->getLastName() != lastName){
-            newClient->setLastName(lastName);
+        if(newClient->getLastName() != lName){
+            newClient->setLastName(lName);
             changed=true;
         }
         if(newClient->getPhoneNumber() != phoneNumber){
@@ -83,6 +124,9 @@ void editClient::on_UpdateClientButton_clicked()
         def_model->setHorizontalHeaderItem(2, new QStandardItem(tr("Ilość")));
         def_model->setHorizontalHeaderItem(3, new QStandardItem(tr("Cena")));
         mainui->treeView->setModel(def_model);
+
+        //save xml
+
         close();
     }
 }

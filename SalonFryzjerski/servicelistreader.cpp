@@ -11,7 +11,6 @@ ServiceListReader::ServiceListReader()
 {
     readXML();
     generateServiceList();
-    qDebug() <<"done";
 }
 
 QDomDocument ServiceListReader::getXMLDatabase() const
@@ -38,6 +37,11 @@ void ServiceListReader::removeServiceFromList(QString name)
         }
     }
     qDebug() << "ServiceList does not contain" << name;
+}
+
+void ServiceListReader::updateXML()
+{
+    //Save XML with current servicesList
 }
 
 

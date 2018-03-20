@@ -9,6 +9,7 @@
 
 #include "clientlistreader.h"
 #include "servicelistreader.h"
+#include "productlistreader.h"
 #include "clientfilter.h"
 #include "client.h"
 #include "visit.h"
@@ -47,7 +48,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ServiceListReader *serviceReader = new ServiceListReader;
     setServiceReader(serviceReader);
-    qDebug() << "check1";
+
+    ProductListReader *productReader = new ProductListReader;
+    setProductReader(productReader);
 
     addNewClientDialog.setMainUi(ui);
     addNewClientDialog.setReader(getClientsReader());
@@ -102,6 +105,16 @@ ServiceListReader *MainWindow::getServiceReader() const
 void MainWindow::setServiceReader(ServiceListReader *reader)
 {
     servicesReader = reader;
+}
+
+ProductListReader *MainWindow::getProductReader() const
+{
+    return productsReader;
+}
+
+void MainWindow::setProductReader(ProductListReader *reader)
+{
+    productsReader = reader;
 }
 
 void MainWindow::on_ClientList_itemSelectionChanged()
@@ -213,6 +226,20 @@ void MainWindow::on_manageServices_clicked()
     manageServicesDialogObj.setWindowFlags(Qt::WindowStaysOnTopHint);
     manageServicesDialogObj.setModal(true);
     manageServicesDialogObj.show();
+    //add new service with QMessageBox confirmation + save xml
+    //remove service with QMessageBox confirmation + save xml
+}
+
+void MainWindow::on_manageProducts_clicked()
+{
+    manageProductsDialog.setProductReader(getProductReader());
+    manageProductsDialog.loadProductList();
+    manageProductsDialog.setWindowFlags(Qt::WindowCloseButtonHint);
+    manageProductsDialog.setWindowIcon(QIcon(icoPath));
+    manageProductsDialog.setWindowTitle("Salon Fryzjerski BLADES - zarządzaj produktami");
+    manageProductsDialog.setWindowFlags(Qt::WindowStaysOnTopHint);
+    manageProductsDialog.setModal(true);
+    manageProductsDialog.show();
     //add new service with QMessageBox confirmation + save xml
     //remove service with QMessageBox confirmation + save xml
 }
