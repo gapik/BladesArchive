@@ -145,8 +145,14 @@ void MainWindow::on_ClientList_itemSelectionChanged()
             model->setRowCount(visits.count());
             for(int j=0;j<visits.count();j++){
 
+                QString priceException;
                 QStandardItem *visitsItem = new QStandardItem( visits.at(j)->getVisitDateString() );
-                QStandardItem *priceItem = new QStandardItem( QString::number(visits.at(j)->getPrice()) );
+                if (visits.at(j)->getPrice() != 0){
+                    priceException=QString::number(visits.at(j)->getPrice());
+                }else{
+                    priceException="brak danych";
+                }
+                QStandardItem *priceItem = new QStandardItem( priceException );
                 visitsItem->setEditable(false);
                 priceItem->setEditable(false);
 

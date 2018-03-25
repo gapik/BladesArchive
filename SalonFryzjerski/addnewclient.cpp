@@ -103,6 +103,7 @@ void addNewClient::on_AddClientButton_clicked()
             mainui->Search->clear();
 
             //save xml
+            reader->updateXML();
 
             close();
         }

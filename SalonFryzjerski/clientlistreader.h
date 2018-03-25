@@ -14,8 +14,11 @@ public:
     void addNewClientToList(Client *newClient);
 //    void updateClient(Client *newClient,int index);
 
+    void updateXML();
+
 private:
     QString XMLpath = "D:/code/Qt/SalonBlades/SalonFryzjerski/Klienci.xml";
+    QString outXMLpath = "D:/code/Qt/SalonBlades/SalonFryzjerski/Klienci2.xml";
 
     void readXML();
     void generateClientList();
