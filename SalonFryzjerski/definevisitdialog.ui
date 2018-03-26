@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DefineVisitDialog</class>
+ <widget class="QDialog" name="DefineVisitDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>627</width>
+    <height>415</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>9</y>
+     <width>611</width>
+     <height>401</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="CTRLinfo">
+        <property name="text">
+         <string>WSKAZÓWKA: użyj CTRL, aby stworzyć Pakiet Usług</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="AvailableServices">
+        <property name="minimumSize">
+         <size>
+          <width>260</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>260</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="AddService">
+        <property name="maximumSize">
+         <size>
+          <width>260</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Dodaj Usługę</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLabel" name="clientLabel">
+        <property name="text">
+         <string>Klient:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="dateLabel">
+        <property name="text">
+         <string>Data Wizyty: ??.??.????</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTreeView" name="servicesList"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="AddProducts">
+        <property name="text">
+         <string>Dodaj Produkty do wybranej Usługi</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="DeleteService">
+        <property name="text">
+         <string>Usuń Usługę/Pakiet Usług</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="AcceptButton">
+        <property name="text">
+         <string>Zatwierdź Wizytę</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="CancelButton">
+        <property name="text">
+         <string>Anuluj</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

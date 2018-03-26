@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     servicelistreader.cpp \
     manageservicesdialog.cpp \
     manageproducts.cpp \
-    productlistreader.cpp
+    productlistreader.cpp \
+    definevisitdialog.cpp
 
 HEADERS  += mainwindow.h \
     client.h \
@@ -39,10 +40,12 @@ HEADERS  += mainwindow.h \
     servicelistreader.h \
     manageservicesdialog.h \
     manageproducts.h \
-    productlistreader.h
+    productlistreader.h \
+    definevisitdialog.h
 
 FORMS    += mainwindow.ui \
     addnewclient.ui \
     editclient.ui \
     manageservicesdialog.ui \
-    manageproducts.ui
+    manageproducts.ui \
+    definevisitdialog.ui

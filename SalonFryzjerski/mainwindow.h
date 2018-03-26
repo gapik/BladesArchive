@@ -7,6 +7,7 @@
 #include "editclient.h"
 #include "manageservicesdialog.h"
 #include "manageproducts.h"
+#include "definevisitdialog.h"
 
 #include "client.h"
 #include "clientlistreader.h"
@@ -52,6 +53,8 @@ private slots:
     void on_manageServices_clicked();
     void on_manageProducts_clicked();
 
+    void on_addVisit_clicked();
+
 private:
     Ui::MainWindow *ui;
     addNewClient addNewClientDialog;
@@ -65,6 +68,7 @@ private:
 
     manageServicesDialog manageServicesDialogObj;
     manageProducts manageProductsDialog;
+    DefineVisitDialog defineVisitDialogObj;
 
     //Has to be generalized...
 //    QString logoPath = "D:/code/Qt/SalonBlades/SalonFryzjerski/blades.jpg";

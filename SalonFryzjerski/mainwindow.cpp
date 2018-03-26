@@ -227,6 +227,26 @@ void MainWindow::on_manageProducts_clicked()
     //remove service with QMessageBox confirmation + save xml
 }
 
+void MainWindow::on_addVisit_clicked()
+{
+    if (ui->ClientList->selectedItems().size() == 0){
+        QMessageBox::information(this,"Wskaż Klienta","Żaden Klient nie został wybrany");
+    }else{
+        defineVisitDialogObj.setServicesReader(getServiceReader());
+        defineVisitDialogObj.loadServiceList();
+        defineVisitDialogObj.setDateLabel(ui->calendarWidget->selectedDate().toString("d MMMM yyyy"));
+        defineVisitDialogObj.setClientLabel(ui->ClientList->currentItem()->text());
+        defineVisitDialogObj.setWindowFlags(Qt::WindowCloseButtonHint);
+        defineVisitDialogObj.setWindowIcon(QIcon(icoPath));
+        defineVisitDialogObj.setWindowTitle("Salon Fryzjerski BLADES - dodaj wizytę");
+        defineVisitDialogObj.setWindowFlags(Qt::WindowStaysOnTopHint);
+        defineVisitDialogObj.setModal(true);
+        defineVisitDialogObj.show();
+
+        qDebug() << "test";
+    }
+}
+
 QString MainWindow::getWorkDirectory() const
 {
     return workDirectory;
