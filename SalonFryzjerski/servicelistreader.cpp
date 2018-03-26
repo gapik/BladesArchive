@@ -1,14 +1,17 @@
 #include "servicelistreader.h"
 
 #include <QFile>
+#include <QDir>
 #include <QDebug>
 #include <QtXml/QDomDocument>
 #include <QMessageBox>
 
 #include "service.h"
 
-ServiceListReader::ServiceListReader()
+ServiceListReader::ServiceListReader(QString path)
 {
+    workDir=path;
+    XMLpath=workDir + "/Uslugi.xml";
     readXML();
     generateServiceList();
 }
@@ -41,8 +44,55 @@ void ServiceListReader::removeServiceFromList(QString name)
 
 void ServiceListReader::updateXML()
 {
-    //Save XML with current servicesList
+    QDomDocument updatedXMLDatabase;
+    QDomElement root = updatedXMLDatabase.createElement("servicesList");
+    updatedXMLDatabase.appendChild(root);
+    for (int i=0;i<servicesList.size();i++){
+        QDomElement service = updatedXMLDatabase.createElement("service");
+        root.appendChild(service);
+
+        QDomText tagservice = updatedXMLDatabase.createTextNode(servicesList.at(i)->getName());
+        service.appendChild(tagservice);
+    }
+//    QDomElement service = updatedXMLDatabase.createElement("service");
+//    root.appendChild(service);
+
+//    QDomText tagservice = updatedXMLDatabase.createTextNode("developer:tomasz.gapski@gmail.com");
+//    service.appendChild(tagservice);
+
+    QFile bckfile(XMLpath);
+    QDir bckdir(workDir + "/Backup");
+    QStringList filters;
+    filters << "Uslugi*";
+    int lastInt=0;
+    for (int i=0;i<bckdir.entryInfoList(filters).size();i++){
+        QString lastFile = bckdir.entryInfoList(filters).at(i).fileName();
+        if (QString(lastFile).remove(".xml").remove("Uslugi").toInt() > lastInt){
+            lastInt=QString(lastFile).remove(".xml").remove("Uslugi").toInt();
+        }
+    }
+    if (lastInt > 100){
+        for (int i=0;i<lastInt-98;i++){
+            qDebug() << "removing: "<< workDir + "/Backup/Uslugi"+QString::number(i)+".xml";
+            QFile fileToRemove (workDir + "/Backup/Uslugi"+QString::number(i)+".xml");
+            if (fileToRemove.exists()){
+                fileToRemove.remove();
+            }
+        }
+    }
+    bckfile.rename(XMLpath,workDir + "/Backup/Uslugi" + QString::number(lastInt+1) + ".xml");
+
+    QFile outfile(XMLpath);
+    if( !outfile.open( QIODevice::WriteOnly | QIODevice::Text ) )
+    {
+        qDebug( "Failed to open file for writing." );
+    }
+    QTextStream stream( &outfile );
+    stream.setCodec("UTF-8");
+    stream << updatedXMLDatabase.toString();
+    outfile.close();
 }
+
 
 
 void ServiceListReader::readXML()

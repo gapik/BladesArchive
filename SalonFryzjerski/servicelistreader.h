@@ -8,7 +8,7 @@
 class ServiceListReader
 {
 public:
-    ServiceListReader();
+    ServiceListReader(QString path);
     QDomDocument getXMLDatabase() const;
     QList<Service*> getServicesList() const;
     void addNewServiceToList(Service *newService);
@@ -17,7 +17,8 @@ public:
     void updateXML();
 
 private:
-    QString XMLpath = "D:/code/Qt/SalonBlades/SalonFryzjerski/Uslugi.xml";
+    QString workDir;
+    QString XMLpath;
 
     void readXML();
     void generateServiceList();

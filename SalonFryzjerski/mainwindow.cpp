@@ -33,33 +33,12 @@ MainWindow::MainWindow(QWidget *parent) :
     def_model->setHorizontalHeaderItem(2, new QStandardItem(tr("Ilość")));
     def_model->setHorizontalHeaderItem(3, new QStandardItem(tr("Cena")));
     ui->treeView->setModel(def_model);
-    ui->treeView->setColumnWidth(0,250);
+    ui->treeView->setColumnWidth(0,300);
     ui->treeView->setColumnWidth(1,100);
     ui->treeView->setColumnWidth(2,75);
     ui->treeView->setColumnWidth(3,75);
 
     ui->ClientList->setSelectionMode(QAbstractItemView::SingleSelection);
-
-
-    ClientListReader *reader = new ClientListReader;
-    setClientsReader(reader);
-    clientFilter *filter = new clientFilter;
-    filter->loadClientsToFilter(reader->getClientsList(),ui);
-
-    ServiceListReader *serviceReader = new ServiceListReader;
-    setServiceReader(serviceReader);
-
-    ProductListReader *productReader = new ProductListReader;
-    setProductReader(productReader);
-
-    addNewClientDialog.setMainUi(ui);
-    addNewClientDialog.setReader(getClientsReader());
-    addNewClientDialog.setFilter(filter);
-
-    editClientDialog.setMainUi(ui);
-    editClientDialog.setReader(getClientsReader());
-    editClientDialog.setFilter(filter);
-
 }
 
 MainWindow::~MainWindow()
@@ -119,7 +98,6 @@ void MainWindow::setProductReader(ProductListReader *reader)
 
 void MainWindow::on_ClientList_itemSelectionChanged()
 {
-    firstSelection=true;
     QString choosenClient = ui->ClientList->currentItem()->text();
     QStringList ClientID = choosenClient.split(' ');
 
@@ -194,7 +172,7 @@ void MainWindow::on_addClient_clicked()
 
 void MainWindow::on_ClientEdit_clicked()
 {
-    if(firstSelection==false){
+    if(ui->ClientList->selectedItems().size()==0){
         QMessageBox::information(this,"Wskaż Klienta","Żaden Klient nie został wybrany");
     }else{
         QStringList clientToEditName= ui->ClientList->selectedItems().at(0)->text().split(' ');
@@ -219,7 +197,6 @@ void MainWindow::on_ClientEdit_clicked()
             }
         }
     }
-
 }
 
 void MainWindow::on_manageServices_clicked()
@@ -248,4 +225,34 @@ void MainWindow::on_manageProducts_clicked()
     manageProductsDialog.show();
     //add new service with QMessageBox confirmation + save xml
     //remove service with QMessageBox confirmation + save xml
+}
+
+QString MainWindow::getWorkDirectory() const
+{
+    return workDirectory;
+}
+
+void MainWindow::setWorkDirectory(const QString &value)
+{
+    workDirectory = value;
+
+    ClientListReader *reader = new ClientListReader(workDirectory);
+    setClientsReader(reader);
+    clientFilter *filter = new clientFilter;
+    filter->loadClientsToFilter(reader->getClientsList(),ui);
+
+    ServiceListReader *serviceReader = new ServiceListReader(workDirectory);
+    setServiceReader(serviceReader);
+
+    ProductListReader *productReader = new ProductListReader(workDirectory);
+    setProductReader(productReader);
+
+    addNewClientDialog.setMainUi(ui);
+    addNewClientDialog.setReader(getClientsReader());
+    addNewClientDialog.setFilter(filter);
+
+    editClientDialog.setMainUi(ui);
+    editClientDialog.setReader(getClientsReader());
+    editClientDialog.setFilter(filter);
+
 }

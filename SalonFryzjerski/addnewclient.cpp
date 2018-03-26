@@ -106,9 +106,15 @@ void addNewClient::on_AddClientButton_clicked()
             reader->updateXML();
 
             close();
+
         }
     }
 }
+
+//void addNewClient::setMainWin(MainWindow *value)
+//{
+//    mainWin = value;
+//}
 
 void addNewClient::setReader(ClientListReader *value)
 {

@@ -9,7 +9,7 @@
 class ProductListReader
 {
 public:
-    ProductListReader();
+    ProductListReader(QString path);
 
     QDomDocument getXMLDatabase() const;
     QList<Product*> getProductsList() const;
@@ -19,7 +19,8 @@ public:
     void updateXML();
 
 private:
-    QString XMLpath = "D:/code/Qt/SalonBlades/SalonFryzjerski/Produkty.xml";
+    QString workDir;
+    QString XMLpath;
 
     void readXML();
     void generateProductList();

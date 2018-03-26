@@ -8,7 +8,7 @@
 class ClientListReader
 {
 public:
-    ClientListReader();
+    ClientListReader(QString path);
     QDomDocument getXMLDatabase() const;
     QList<Client*> getClientsList() const;
     void addNewClientToList(Client *newClient);
@@ -17,7 +17,8 @@ public:
     void updateXML();
 
 private:
-    QString XMLpath = "D:/code/Qt/SalonBlades/SalonFryzjerski/Klienci.xml";
+    QString workDir;
+    QString XMLpath;
     QString outXMLpath = "D:/code/Qt/SalonBlades/SalonFryzjerski/Klienci2.xml";
 
     void readXML();

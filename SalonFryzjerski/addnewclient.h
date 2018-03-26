@@ -6,7 +6,6 @@
 #include "clientfilter.h"
 #include "ui_mainwindow.h"
 
-
 namespace Ui {
 class addNewClient;
 }

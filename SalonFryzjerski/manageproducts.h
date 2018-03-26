@@ -29,14 +29,10 @@ private slots:
 
     void on_cancelButton_clicked();
 
-    void on_productListWidget_itemSelectionChanged();
-
 private:
     Ui::manageProducts *ui;
 
     ProductListReader *productsReader;
-
-    bool firstSelection=false;
 };
 
 #endif // MANAGEPRODUCTS_H

@@ -1,6 +1,7 @@
 #include "clientlistreader.h"
 
 #include <QFile>
+#include <QDir>
 #include <QDebug>
 #include <QtXml/QDomDocument>
 
@@ -9,8 +10,12 @@
 #include "service.h"
 #include "product.h"
 
-ClientListReader::ClientListReader()
+ClientListReader::ClientListReader(QString path)
 {
+    workDir = path;
+    XMLpath = workDir + "/Klienci.xml";
+    qDebug() << workDir << XMLpath;
+    outXMLpath=path;
     readXML();
     generateClientList();
 }
@@ -100,7 +105,7 @@ void ClientListReader::updateXML()
 
         QDomElement id = updatedXMLDatabase.createElement("id");
         client.appendChild(id);
-        QDomText tagId = updatedXMLDatabase.createTextNode(QString::number(clientsList.at(i)->getClientID()));
+        QDomText tagId = updatedXMLDatabase.createTextNode(QString::number(clientsList.at(i)->getClientID()+1));
         id.appendChild(tagId);
 
         QDomElement surname = updatedXMLDatabase.createElement("surname");
@@ -131,7 +136,7 @@ void ClientListReader::updateXML()
 
             QDomElement visitId = updatedXMLDatabase.createElement("id");
             visit.appendChild(visitId);
-            QDomText tagVisitId = updatedXMLDatabase.createTextNode(QString::number(clientsList.at(i)->getClientID()));
+            QDomText tagVisitId = updatedXMLDatabase.createTextNode(QString::number(clientsList.at(i)->getClientID()+1));
             visitId.appendChild(tagVisitId);
 
             QDomElement price = updatedXMLDatabase.createElement("price");
@@ -203,25 +208,38 @@ void ClientListReader::updateXML()
     QDomText tagComments = updatedXMLDatabase.createTextNode("tomasz.gapski@gmail.com");
     comments.appendChild(tagComments);
 
+    QFile bckfile(XMLpath);
+    QDir bckdir(workDir + "/Backup");
+    QStringList filters;
+    filters << "Klienci*";
+    int lastInt=0;
+    for (int i=0;i<bckdir.entryInfoList(filters).size();i++){
+        QString lastFile = bckdir.entryInfoList(filters).at(i).fileName();
+        if (QString(lastFile).remove(".xml").remove("Klienci").toInt() > lastInt){
+            lastInt=QString(lastFile).remove(".xml").remove("Klienci").toInt();
+        }
+    }
+    if (lastInt > 1000){
+        for (int i=0;i<lastInt-998;i++){
+            qDebug() << "removing: "<< workDir + "/Backup/Klienci"+QString::number(i)+".xml";
+            QFile fileToRemove (workDir + "/Backup/Klienci"+QString::number(i)+".xml");
+            if (fileToRemove.exists()){
+                fileToRemove.remove();
+            }
+        }
+    }
+    bckfile.rename(XMLpath,workDir + "/Backup/Klienci" + QString::number(lastInt+1) + ".xml");
 
-    QFile outfile(outXMLpath);
+    QFile outfile(XMLpath);
     if( !outfile.open( QIODevice::WriteOnly | QIODevice::Text ) )
     {
-    qDebug( "Failed to open file for writing." );
+        qDebug( "Failed to open file for writing." );
     }
     QTextStream stream( &outfile );
     stream.setCodec("UTF-8");
     stream << updatedXMLDatabase.toString();
     outfile.close();
 }
-
-//void ClientListReader::updateClient(Client *newClient, int index)
-//{
-//    clientsList.at(index)->setFirstName(newClient->getFirstName());
-//    clientsList.at(index)->setLastName(newClient->getLastName());
-//    clientsList.at(index)->setPhoneNumber(newClient->getPhoneNumber());
-//    clientsList.at(index)->setFirstName(newClient->getFirstName());
-//}
 
 QDomDocument ClientListReader::getXMLDatabase() const
 {

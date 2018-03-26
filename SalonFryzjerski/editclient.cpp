@@ -126,6 +126,7 @@ void editClient::on_UpdateClientButton_clicked()
         mainui->treeView->setModel(def_model);
 
         //save xml
+        reader->updateXML();
 
         close();
     }

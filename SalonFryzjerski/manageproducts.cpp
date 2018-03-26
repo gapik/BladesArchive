@@ -78,12 +78,11 @@ void manageProducts::on_addProduct_clicked()
     }
     ui->productListWidget->sortItems();
     ui->newProductName->clear();
-    firstSelection=false;
 }
 
 void manageProducts::on_removeProduct_clicked()
 {
-    if (!firstSelection){
+    if (ui->productListWidget->selectedItems().size()==0){
         QMessageBox::information(this,"Wskaż produkt, który ma zostać skasowany!","Wskaż produkt, który ma zostać skasowany.");
         return;
     }else{
@@ -93,14 +92,12 @@ void manageProducts::on_removeProduct_clicked()
             ui->productListWidget->addItem(productsReader->getProductsList().at(i)->getName());
         }
         ui->productListWidget->sortItems();
-        firstSelection=false;
     }
 }
 
 void manageProducts::on_acceptChanges_clicked()
 {
     //Save XML file with services
-    qDebug() << "Need to add capability to save XML with services.";
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, "Potwierdzenie zmian.", "Czy na pewno chcesz wprowadzić zmiany w liście produktów?",
                                     QMessageBox::Yes|QMessageBox::No);
@@ -114,9 +111,4 @@ void manageProducts::on_acceptChanges_clicked()
 void manageProducts::on_cancelButton_clicked()
 {
     close();
-}
-
-void manageProducts::on_productListWidget_itemSelectionChanged()
-{
-    firstSelection=true;
 }

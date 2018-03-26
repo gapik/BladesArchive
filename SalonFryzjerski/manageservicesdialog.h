@@ -25,9 +25,6 @@ private slots:
 
     void on_deleteService_clicked();
 
-
-    void on_servicesList_itemSelectionChanged();
-
     void on_AcceptChanges_clicked();
 
     void on_cancelButton_clicked();
@@ -36,8 +33,6 @@ private:
     Ui::manageServicesDialog *ui;
 
     ServiceListReader *servicesReader;
-
-    bool firstSelection=false;
 };
 
 #endif // MANAGESERVICESDIALOG_H
