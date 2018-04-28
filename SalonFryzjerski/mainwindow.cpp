@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QStandardItemModel *def_model = new QStandardItemModel(this);
     def_model->setColumnCount(4);
     def_model->setHorizontalHeaderItem(0, new QStandardItem(tr("Imię i Nazwisko (numer telefonu) [UWAGI]")));
-    def_model->setHorizontalHeaderItem(1, new QStandardItem(tr("Sygnatura Produktu")));
+    def_model->setHorizontalHeaderItem(1, new QStandardItem(tr("Sygnatura")));
     def_model->setHorizontalHeaderItem(2, new QStandardItem(tr("Ilość")));
     def_model->setHorizontalHeaderItem(3, new QStandardItem(tr("Cena")));
     ui->treeView->setModel(def_model);
@@ -103,7 +103,7 @@ void MainWindow::on_ClientList_itemSelectionChanged()
 
     QStandardItemModel *model = new QStandardItemModel(this);
     model->setColumnCount(4);
-    model->setHorizontalHeaderItem(1, new QStandardItem(tr("Sygnatura Produktu")));
+    model->setHorizontalHeaderItem(1, new QStandardItem(tr("Sygnatura")));
     model->setHorizontalHeaderItem(2, new QStandardItem(tr("Ilość")));
     model->setHorizontalHeaderItem(3, new QStandardItem(tr("Cena")));
 

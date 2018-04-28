@@ -45,6 +45,12 @@ private slots:
     void on_DeleteService_clicked();
     void on_productsUpdated();
 
+    void on_servicesList_clicked(const QModelIndex &index);
+
+    void on_AvailableServices_clicked(const QModelIndex &index);
+
+    void on_deleteProduct_clicked();
+
 private:
     Ui::DefineVisitDialog *ui;
     assignProductsToVisit assignProduct;

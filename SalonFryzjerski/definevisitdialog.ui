@@ -134,6 +134,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="deleteProduct">
+        <property name="text">
+         <string>Usuń Produkt</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QLabel" name="priceLabel">

@@ -27,4 +27,19 @@ void Service::addProduct(Product *product)
     productList.append(product);
 }
 
+void Service::removeProductAtIndex(int index)
+{
+    productList.removeAt(index);
+}
+
+void Service::removeProductByName(QString name)
+{
+    for (int i=0;i<productList.size();i++){
+        if (productList.at(i)->getName() == name){
+            productList.removeAt(i);
+            return;
+        }
+    }
+}
+
 

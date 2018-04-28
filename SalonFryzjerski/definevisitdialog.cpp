@@ -6,6 +6,7 @@
 #include <QTreeView>
 #include <QModelIndex>
 #include <QMessageBox>
+#include "product.h"
 
 DefineVisitDialog::DefineVisitDialog(QWidget *parent) :
     QDialog(parent),
@@ -78,7 +79,6 @@ void DefineVisitDialog::setClientLabel(QString clientName)
 
 void DefineVisitDialog::updateTreeView()
 {
-    qDebug() << "tutaj";
     QStandardItemModel *def_model = new QStandardItemModel(this);
     def_model->setColumnCount(4);
     def_model->setHorizontalHeaderItem(0, new QStandardItem(tr("Usługa")));
@@ -149,9 +149,8 @@ void DefineVisitDialog::on_AddProducts_clicked()
 
 void DefineVisitDialog::on_DeleteService_clicked()
 {
-    if (ui->servicesList->selectionModel()->hasSelection()){
+    if (ui->servicesList->selectionModel()->hasSelection() && ui->servicesList->selectionModel()->selectedIndexes().at(0).data().toStringList().at(0) != QString("")){
         ServiceList.removeAt(ui->servicesList->selectionModel()->selectedIndexes().at(0).row());
-
         updateTreeView();
     }else{
         QMessageBox::warning(this,"Nie wybrałeś usługi/pakietu usług!","Nie wybrałeś usługi/pakietu usług.");
@@ -163,17 +162,28 @@ void DefineVisitDialog::on_productsUpdated()
     updateTreeView();
 }
 
-//QList<Product *> DefineVisitDialog::getProductList() const
-//{
-//    return ProductList;
-//}
-
-//void DefineVisitDialog::setProductList(const QList<Product *> &value)
-//{
-//    ProductList = value;
-//}
-
 void DefineVisitDialog::setIconPath(const QString &value)
 {
     iconPath = value;
+}
+
+void DefineVisitDialog::on_servicesList_clicked(const QModelIndex &index)
+{
+    ui->AddProducts->setDefault(true);
+}
+
+void DefineVisitDialog::on_AvailableServices_clicked(const QModelIndex &index)
+{
+    ui->AddService->setDefault(true);
+}
+
+void DefineVisitDialog::on_deleteProduct_clicked()
+{
+    if (ui->servicesList->selectionModel()->hasSelection() && ui->servicesList->selectionModel()->selectedIndexes().at(0).data().toStringList().at(0) == QString("")){
+        qDebug()<<"service: " << ui->servicesList->selectionModel()->selectedIndexes().at(0).parent().row() << "product:" << ui->servicesList->selectionModel()->selectedIndexes().at(0).row();
+        ServiceList.at(ui->servicesList->selectionModel()->selectedIndexes().at(0).parent().row())->getProductList().removeAt(ui->servicesList->selectionModel()->selectedIndexes().at(0).row());
+        updateTreeView();
+    }else{
+        QMessageBox::warning(this,"Nie wybrałeś produktu!","Nie wybrałeś produktu.");
+    }
 }
