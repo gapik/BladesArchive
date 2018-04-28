@@ -5,6 +5,9 @@
 
 #include "servicelistreader.h"
 #include "productlistreader.h"
+#include "visit.h"
+
+#include "assignproductstovisit.h"
 
 namespace Ui {
 class DefineVisitDialog;
@@ -28,17 +31,31 @@ public:
     void loadServiceList();
     void setDateLabel(QString dateString);
     void setClientLabel(QString clientName);
+    void updateTreeView();
+
+    void setIconPath(const QString &value);
 
 private slots:
     void on_AddService_clicked();
 
     void on_CancelButton_clicked();
 
+    void on_AddProducts_clicked();
+
+    void on_DeleteService_clicked();
+    void on_productsUpdated();
+
 private:
     Ui::DefineVisitDialog *ui;
+    assignProductsToVisit assignProduct;
 
     ServiceListReader *servicesReader;
     ProductListReader *productsReader;
+
+    Visit* newVisit;
+    QList<Service*> ServiceList;
+
+    QString iconPath;
 
 };
 

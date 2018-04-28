@@ -120,7 +120,7 @@ void editClient::on_UpdateClientButton_clicked()
         QStandardItemModel *def_model = new QStandardItemModel(this);
         def_model->setColumnCount(4);
         def_model->setHorizontalHeaderItem(0, new QStandardItem(tr("Imię i Nazwisko (numer telefonu) [UWAGI]")));
-        def_model->setHorizontalHeaderItem(1, new QStandardItem(tr("Numer Produktu")));
+        def_model->setHorizontalHeaderItem(1, new QStandardItem(tr("Sygnatura Produktu")));
         def_model->setHorizontalHeaderItem(2, new QStandardItem(tr("Ilość")));
         def_model->setHorizontalHeaderItem(3, new QStandardItem(tr("Cena")));
         mainui->treeView->setModel(def_model);

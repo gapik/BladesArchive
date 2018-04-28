@@ -28,8 +28,9 @@ void manageProducts::setProductReader(ProductListReader *reader)
 void manageProducts::loadProductList()
 {
     ui->productListWidget->clear();
-    for (int i=0;i<productsReader->getProductsList().size();i++){
-        ui->productListWidget->addItem(productsReader->getProductsList().at(i)->getName());
+    QList<Product *> productlist= productsReader->getProductsList();
+    for (int i=0;i<productlist.size();i++){
+        ui->productListWidget->addItem(productlist.at(i)->getName());
     }
     ui->productListWidget->sortItems();
 }

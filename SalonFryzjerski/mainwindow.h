@@ -43,6 +43,8 @@ public:
     QString getWorkDirectory() const;
     void setWorkDirectory(const QString &value);
 
+    QString getIcoPath() const;
+
 private slots:
     void on_Search_textChanged(const QString &arg1);
     void on_ClientList_itemSelectionChanged();

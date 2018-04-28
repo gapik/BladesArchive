@@ -2,13 +2,34 @@
 <ui version="4.0">
  <class>DefineVisitDialog</class>
  <widget class="QDialog" name="DefineVisitDialog">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>627</width>
-    <height>415</height>
+    <width>1000</width>
+    <height>500</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1000</width>
+    <height>500</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1000</width>
+    <height>500</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
@@ -18,11 +39,14 @@
     <rect>
      <x>9</x>
      <y>9</y>
-     <width>611</width>
-     <height>401</height>
+     <width>981</width>
+     <height>481</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="sizeConstraint">
+     <enum>QLayout::SetMinAndMaxSize</enum>
+    </property>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
@@ -80,7 +104,20 @@
        </widget>
       </item>
       <item>
-       <widget class="QTreeView" name="servicesList"/>
+       <widget class="QTreeView" name="servicesList">
+        <property name="minimumSize">
+         <size>
+          <width>510</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>700</height>
+         </size>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="AddProducts">
@@ -95,6 +132,20 @@
          <string>Usuń Usługę/Pakiet Usług</string>
         </property>
        </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLabel" name="priceLabel">
+          <property name="text">
+           <string>Cena:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="priceLineEdit"/>
+        </item>
+       </layout>
       </item>
       <item>
        <widget class="QPushButton" name="AcceptButton">

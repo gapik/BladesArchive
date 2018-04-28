@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QStandardItemModel *def_model = new QStandardItemModel(this);
     def_model->setColumnCount(4);
     def_model->setHorizontalHeaderItem(0, new QStandardItem(tr("Imię i Nazwisko (numer telefonu) [UWAGI]")));
-    def_model->setHorizontalHeaderItem(1, new QStandardItem(tr("Numer Produktu")));
+    def_model->setHorizontalHeaderItem(1, new QStandardItem(tr("Sygnatura Produktu")));
     def_model->setHorizontalHeaderItem(2, new QStandardItem(tr("Ilość")));
     def_model->setHorizontalHeaderItem(3, new QStandardItem(tr("Cena")));
     ui->treeView->setModel(def_model);
@@ -103,7 +103,7 @@ void MainWindow::on_ClientList_itemSelectionChanged()
 
     QStandardItemModel *model = new QStandardItemModel(this);
     model->setColumnCount(4);
-    model->setHorizontalHeaderItem(1, new QStandardItem(tr("Numer Produktu")));
+    model->setHorizontalHeaderItem(1, new QStandardItem(tr("Sygnatura Produktu")));
     model->setHorizontalHeaderItem(2, new QStandardItem(tr("Ilość")));
     model->setHorizontalHeaderItem(3, new QStandardItem(tr("Cena")));
 
@@ -233,6 +233,7 @@ void MainWindow::on_addVisit_clicked()
         QMessageBox::information(this,"Wskaż Klienta","Żaden Klient nie został wybrany");
     }else{
         defineVisitDialogObj.setServicesReader(getServiceReader());
+        defineVisitDialogObj.setProductsReader(getProductReader());
         defineVisitDialogObj.loadServiceList();
         defineVisitDialogObj.setDateLabel(ui->calendarWidget->selectedDate().toString("d MMMM yyyy"));
         defineVisitDialogObj.setClientLabel(ui->ClientList->currentItem()->text());
@@ -241,10 +242,14 @@ void MainWindow::on_addVisit_clicked()
         defineVisitDialogObj.setWindowTitle("Salon Fryzjerski BLADES - dodaj wizytę");
         defineVisitDialogObj.setWindowFlags(Qt::WindowStaysOnTopHint);
         defineVisitDialogObj.setModal(true);
+        defineVisitDialogObj.setIconPath(getIcoPath());
         defineVisitDialogObj.show();
-
-        qDebug() << "test";
     }
+}
+
+QString MainWindow::getIcoPath() const
+{
+    return icoPath;
 }
 
 QString MainWindow::getWorkDirectory() const
