@@ -25,9 +25,12 @@ public:
 
     QList<Visit*> getVisitList();
     void addVisit(Visit *visit);
+    void removeVisit(Visit *visit);
 
     int getClientID() const;
     void setClientID(int id);
+
+    void sortVisitsByDate();
 
 private:
     QString clientFirstName;

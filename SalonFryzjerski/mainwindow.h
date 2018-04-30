@@ -45,17 +45,25 @@ public:
 
     QString getIcoPath() const;
 
+    void updateTreeView();
+
 private slots:
     void on_Search_textChanged(const QString &arg1);
     void on_ClientList_itemSelectionChanged();
 
     void on_addClient_clicked();
     void on_ClientEdit_clicked();
+    void on_deleteClient_clicked();
 
     void on_manageServices_clicked();
     void on_manageProducts_clicked();
 
     void on_addVisit_clicked();
+    void on_editVisit_clicked();
+    void on_expandCollapse_clicked();
+    void on_deleteVisit_clicked();
+
+    void on_newVisitDefined();
 
 private:
     Ui::MainWindow *ui;
@@ -77,6 +85,8 @@ private:
 //    QString icoPath = "D:/code/Qt/SalonBlades/SalonFryzjerski/nozyczki.ico";
     QString logoPath = "blades.jpg";
     QString icoPath = "nozyczki.ico";
+
+    bool treeExpanded = true;
 };
 
 #endif // MAINWINDOW_H

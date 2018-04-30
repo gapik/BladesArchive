@@ -26,6 +26,7 @@ DefineVisitDialog::DefineVisitDialog(QWidget *parent) :
     ui->servicesList->setColumnWidth(3,75);
 
     connect(&assignProduct,&assignProductsToVisit::productsUpdated,this,&DefineVisitDialog::on_productsUpdated);
+    ui->priceLineEdit->setValidator(new QDoubleValidator(0, 1000, 1, this));
 }
 
 DefineVisitDialog::~DefineVisitDialog()
@@ -61,6 +62,17 @@ void DefineVisitDialog::loadServiceList()
     }
     ui->AvailableServices->sortItems();
     ui->AvailableServices->setSelectionMode(QAbstractItemView::ExtendedSelection);
+}
+
+void DefineVisitDialog::loadVisitToEdit(Visit *visit)
+{
+    VisitForEdition=visit;
+    for (int i=0;i<VisitForEdition->getServiceList().size();i++){
+        ServiceList.append(VisitForEdition->getServiceList().at(i));
+    }
+    ui->priceLineEdit->setText(QString::number(VisitForEdition->getPrice()));
+    editMode=true;
+    updateTreeView();
 }
 
 void DefineVisitDialog::setDateLabel(QString dateString)
@@ -111,13 +123,15 @@ void DefineVisitDialog::updateTreeView()
 void DefineVisitDialog::on_AddService_clicked()
 {
     QStringList servicePackage;
-    for (int i=0;i<ui->AvailableServices->selectedItems().size();i++){
-        servicePackage.append(ui->AvailableServices->selectedItems().at(i)->text());
-    }
+    if (ui->AvailableServices->selectionModel()->hasSelection()){
+        for (int i=0;i<ui->AvailableServices->selectedItems().size();i++){
+            servicePackage.append(ui->AvailableServices->selectedItems().at(i)->text());
+        }
 
-    Service *newService=new Service;
-    newService->setName(servicePackage.join(" + "));
-    ServiceList.append(newService);
+        Service *newService=new Service;
+        newService->setName(servicePackage.join(" + "));
+        ServiceList.append(newService);
+    }
 
     updateTreeView();
     ui->AvailableServices->clearSelection();
@@ -125,6 +139,11 @@ void DefineVisitDialog::on_AddService_clicked()
 
 void DefineVisitDialog::on_CancelButton_clicked()
 {
+    while(ServiceList.size() != 0){
+        ServiceList.removeFirst();
+    }
+    updateTreeView();
+    ui->priceLineEdit->clear();
     close();
 }
 
@@ -180,10 +199,68 @@ void DefineVisitDialog::on_AvailableServices_clicked(const QModelIndex &index)
 void DefineVisitDialog::on_deleteProduct_clicked()
 {
     if (ui->servicesList->selectionModel()->hasSelection() && ui->servicesList->selectionModel()->selectedIndexes().at(0).data().toStringList().at(0) == QString("")){
-        qDebug()<<"service: " << ui->servicesList->selectionModel()->selectedIndexes().at(0).parent().row() << "product:" << ui->servicesList->selectionModel()->selectedIndexes().at(0).row();
-        ServiceList.at(ui->servicesList->selectionModel()->selectedIndexes().at(0).parent().row())->getProductList().removeAt(ui->servicesList->selectionModel()->selectedIndexes().at(0).row());
+        ServiceList.at(ui->servicesList->selectionModel()->selectedIndexes().at(0).parent().row())->removeProductAtIndex(ui->servicesList->selectionModel()->selectedIndexes().at(0).row());
         updateTreeView();
     }else{
         QMessageBox::warning(this,"Nie wybrałeś produktu!","Nie wybrałeś produktu.");
     }
+}
+
+void DefineVisitDialog::on_AcceptButton_clicked()
+{
+    QMessageBox::StandardButton reply;
+    if (ServiceList.size() == 0){
+        QMessageBox::warning(this,"Nie dodano żadnej usługi!","Nie dodano żadnej usługi.");
+    }else{
+        if (ui->priceLineEdit->text() == QString("")){
+            QMessageBox::warning(this,"Nie podano ceny za wizytę!","Nie podano ceny za wizytę.");
+            return;
+        }else{
+            reply = QMessageBox::question(this, "Potwierdzenie zmian.", "Czy na pewno chcesz dodać nową wizytę?",
+                                            QMessageBox::Yes|QMessageBox::No);
+        }
+    }
+
+    if (reply == QMessageBox::Yes) {
+        if (editMode){
+            VisitForEdition->removeAllServices();
+            while(ServiceList.size() != 0){
+                VisitForEdition->addService(ServiceList.at(0));
+                ServiceList.removeFirst();
+            }
+            VisitForEdition->setPrice(ui->priceLineEdit->text().toDouble());
+            updateTreeView();
+            ui->priceLineEdit->clear();
+            editMode=false;
+            emit editModeIsDone();
+            close();
+        }else{
+            newVisit = new Visit;
+            newVisit->setPrice(ui->priceLineEdit->text().toDouble());
+            newVisit->setVisitDateString(ui->dateLabel->text().split(" ").at(2)+ " " +ui->dateLabel->text().split(" ").at(3) + " " + ui->dateLabel->text().split(" ").at(4));
+            while(ServiceList.size() != 0){
+                newVisit->addService(ServiceList.at(0));
+                ServiceList.removeFirst();
+            }
+            updateTreeView();
+            ui->priceLineEdit->clear();
+            emit newVisitDefined();
+            close();
+        }
+    }
+}
+
+QList<Service *> DefineVisitDialog::getServiceList() const
+{
+    return ServiceList;
+}
+
+Visit *DefineVisitDialog::getNewVisit() const
+{
+    return newVisit;
+}
+
+void DefineVisitDialog::on_priceLineEdit_textEdited(const QString &arg1)
+{
+    ui->AcceptButton->setDefault(true);
 }

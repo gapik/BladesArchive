@@ -40,7 +40,7 @@ void ProductListReader::removeProductFromList(QString name)
             return;
         }
     }
-    qDebug() << "ProductsList does not contain" << name;
+//    qDebug() << "ProductsList does not contain" << name;
 }
 
 void ProductListReader::updateXML()
@@ -74,7 +74,7 @@ void ProductListReader::updateXML()
     }
     if (lastInt > 100){
         for (int i=0;i<lastInt-98;i++){
-            qDebug() << "removing: "<< workDir + "/Backup/Produkty"+QString::number(i)+".xml";
+//            qDebug() << "removing: "<< workDir + "/Backup/Produkty"+QString::number(i)+".xml";
             QFile fileToRemove (workDir + "/Backup/Produkty"+QString::number(i)+".xml");
             if (fileToRemove.exists()){
                 fileToRemove.remove();

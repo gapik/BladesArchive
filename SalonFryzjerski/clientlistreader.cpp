@@ -43,7 +43,16 @@ void ClientListReader::generateClientList()
         Client *newClient = new Client;
         newClient->setLastName(ClientNodes.at(1).toElement().text());
         newClient->setFirstName(ClientNodes.at(2).toElement().text());
-        newClient->setPhoneNumber(ClientNodes.at(3).toElement().text());
+
+        if (ClientNodes.at(3).toElement().text() != QString("")){
+            QStringList formatting = ClientNodes.at(3).toElement().text().simplified().replace(" ","").split("");
+            QString phoneNumber=QString(formatting.at(1) + formatting.at(2) + formatting.at(3) + " " + formatting.at(4) + formatting.at(5) + formatting.at(6) + " " + formatting.at(7) + formatting.at(8) + formatting.at(9));
+            newClient->setPhoneNumber(phoneNumber);
+        }else{
+            newClient->setPhoneNumber(ClientNodes.at(3).toElement().text());
+        }
+
+
         newClient->setComment(ClientNodes.at(4).toElement().text());
         newClient->setClientID(ClientNodes.at(0).toElement().text().toInt());
 
@@ -80,6 +89,7 @@ void ClientListReader::generateClientList()
             }
             newClient->addVisit(newVisit);
         }
+        newClient->sortVisitsByDate();
         clientsList.append(newClient);
     }
 }
@@ -92,6 +102,11 @@ QList<Client *> ClientListReader::getClientsList() const
 void ClientListReader::addNewClientToList(Client *newClient)
 {
     clientsList.append(newClient);
+}
+
+void ClientListReader::removeClientFromList(Client *newClient)
+{
+    clientsList.removeOne(newClient);
 }
 
 void ClientListReader::updateXML()

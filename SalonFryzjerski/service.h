@@ -17,7 +17,6 @@ public:
     QList<Product*> getProductList() const;
     void addProduct(Product *product);
     void removeProductAtIndex(int index);
-    void removeProductByName(QString name);
 
 private:
     QString serviceName = "";

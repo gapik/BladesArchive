@@ -106,6 +106,19 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="deleteClient">
+          <property name="maximumSize">
+           <size>
+            <width>250</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Usuń Klienta</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="verticalSpacer_2">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -236,9 +249,23 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
+         <widget class="QPushButton" name="expandCollapse">
+          <property name="text">
+           <string>Zwiń Wizyty</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="editVisit">
           <property name="text">
            <string>Edytuj Wizytę</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="deleteVisit">
+          <property name="text">
+           <string>Usuń Wizytę</string>
           </property>
          </widget>
         </item>

@@ -44,6 +44,14 @@ void assignProductsToVisit::setProductListToComboBoxes()
             ui->productSelect_6->addItem("Wybierz produkt...");
             ui->productSelect_7->addItem("Wybierz produkt...");
             ui->productSelect_8->addItem("Wybierz produkt...");
+            ui->productSelect_1->addItem("To samo");
+            ui->productSelect_2->addItem("To samo");
+            ui->productSelect_3->addItem("To samo");
+            ui->productSelect_4->addItem("To samo");
+            ui->productSelect_5->addItem("To samo");
+            ui->productSelect_6->addItem("To samo");
+            ui->productSelect_7->addItem("To samo");
+            ui->productSelect_8->addItem("To samo");
         }
         ui->productSelect_1->addItem(productlist.at(i)->getName());
         ui->productSelect_2->addItem(productlist.at(i)->getName());
@@ -88,6 +96,9 @@ void assignProductsToVisit::on_addProductButton_clicked()
         newProduct_1->setSignature(ui->Signature_1->text());
         newProduct_1->setAmount(ui->Amount_1->text().toDouble());
         service->addProduct(newProduct_1);
+        ui->productSelect_1->setCurrentIndex(0);
+        ui->Signature_1->clear();
+        ui->Amount_1->clear();
     }
     if (ui->productSelect_2->currentText() != QString("Wybierz produkt...")){
         Product *newProduct_2 = new Product;
@@ -95,6 +106,9 @@ void assignProductsToVisit::on_addProductButton_clicked()
         newProduct_2->setSignature(ui->Signature_2->text());
         newProduct_2->setAmount(ui->Amount_2->text().toDouble());
         service->addProduct(newProduct_2);
+        ui->productSelect_2->setCurrentIndex(0);
+        ui->Signature_2->clear();
+        ui->Amount_2->clear();
     }
     if (ui->productSelect_3->currentText() != QString("Wybierz produkt...")){
         Product *newProduct_3 = new Product;
@@ -102,6 +116,9 @@ void assignProductsToVisit::on_addProductButton_clicked()
         newProduct_3->setSignature(ui->Signature_3->text());
         newProduct_3->setAmount(ui->Amount_3->text().toDouble());
         service->addProduct(newProduct_3);
+        ui->productSelect_3->setCurrentIndex(0);
+        ui->Signature_3->clear();
+        ui->Amount_3->clear();
     }
     if (ui->productSelect_4->currentText() != QString("Wybierz produkt...")){
         Product *newProduct_4 = new Product;
@@ -109,6 +126,9 @@ void assignProductsToVisit::on_addProductButton_clicked()
         newProduct_4->setSignature(ui->Signature_4->text());
         newProduct_4->setAmount(ui->Amount_4->text().toDouble());
         service->addProduct(newProduct_4);
+        ui->productSelect_4->setCurrentIndex(0);
+        ui->Signature_4->clear();
+        ui->Amount_4->clear();
     }
     if (ui->productSelect_5->currentText() != QString("Wybierz produkt...")){
         Product *newProduct_5 = new Product;
@@ -116,6 +136,9 @@ void assignProductsToVisit::on_addProductButton_clicked()
         newProduct_5->setSignature(ui->Signature_5->text());
         newProduct_5->setAmount(ui->Amount_5->text().toDouble());
         service->addProduct(newProduct_5);
+        ui->productSelect_5->setCurrentIndex(0);
+        ui->Signature_5->clear();
+        ui->Amount_5->clear();
     }
     if (ui->productSelect_6->currentText() != QString("Wybierz produkt...")){
         Product *newProduct_6 = new Product;
@@ -123,6 +146,9 @@ void assignProductsToVisit::on_addProductButton_clicked()
         newProduct_6->setSignature(ui->Signature_6->text());
         newProduct_6->setAmount(ui->Amount_6->text().toDouble());
         service->addProduct(newProduct_6);
+        ui->productSelect_6->setCurrentIndex(0);
+        ui->Signature_6->clear();
+        ui->Amount_6->clear();
     }
     if (ui->productSelect_7->currentText() != QString("Wybierz produkt...")){
         Product *newProduct_7 = new Product;
@@ -130,6 +156,9 @@ void assignProductsToVisit::on_addProductButton_clicked()
         newProduct_7->setSignature(ui->Signature_7->text());
         newProduct_7->setAmount(ui->Amount_7->text().toDouble());
         service->addProduct(newProduct_7);
+        ui->productSelect_7->setCurrentIndex(0);
+        ui->Signature_7->clear();
+        ui->Amount_7->clear();
     }
     if (ui->productSelect_8->currentText() != QString("Wybierz produkt...")){
         Product *newProduct_8 = new Product;
@@ -137,6 +166,9 @@ void assignProductsToVisit::on_addProductButton_clicked()
         newProduct_8->setSignature(ui->Signature_8->text());
         newProduct_8->setAmount(ui->Amount_8->text().toDouble());
         service->addProduct(newProduct_8);
+        ui->productSelect_8->setCurrentIndex(0);
+        ui->Signature_8->clear();
+        ui->Amount_8->clear();
     }
 
     if (reply == QMessageBox::Yes) {

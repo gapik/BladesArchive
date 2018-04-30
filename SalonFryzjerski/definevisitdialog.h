@@ -29,11 +29,20 @@ public:
     void setProductsReader(ProductListReader *value);
 
     void loadServiceList();
+    void loadVisitToEdit(Visit *visit);
     void setDateLabel(QString dateString);
     void setClientLabel(QString clientName);
     void updateTreeView();
 
     void setIconPath(const QString &value);
+
+    Visit *getNewVisit() const;
+
+    QList<Service *> getServiceList() const;
+
+signals:
+    void newVisitDefined();
+    void editModeIsDone();
 
 private slots:
     void on_AddService_clicked();
@@ -51,6 +60,10 @@ private slots:
 
     void on_deleteProduct_clicked();
 
+    void on_AcceptButton_clicked();
+
+    void on_priceLineEdit_textEdited(const QString &arg1);
+
 private:
     Ui::DefineVisitDialog *ui;
     assignProductsToVisit assignProduct;
@@ -59,6 +72,8 @@ private:
     ProductListReader *productsReader;
 
     Visit* newVisit;
+    Visit* VisitForEdition;
+    bool editMode=false;
     QList<Service*> ServiceList;
 
     QString iconPath;

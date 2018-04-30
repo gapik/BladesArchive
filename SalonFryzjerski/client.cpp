@@ -2,6 +2,12 @@
 
 #include "visit.h"
 #include <QDebug>
+#include <QtCore>
+
+bool myfunction(Visit *left, Visit *right)
+{
+    return left->getVisitDate() <right->getVisitDate();
+}
 
 Client::Client()
 {
@@ -58,6 +64,11 @@ void Client::addVisit(Visit *visit)
     VisitList.append(visit);
 }
 
+void Client::removeVisit(Visit *visit)
+{
+    VisitList.removeOne(visit);
+}
+
 int Client::getClientID() const
 {
     return clientID;
@@ -68,20 +79,11 @@ void Client::setClientID(int id)
     clientID = id;
 }
 
-//bool Client::operator==(const Client &c){
-//    if (this->getFirstName() == c.getFirstName() && this->getLastName() == c.getLastName()){
-//        qDebug() << "tak";
-//        return true;
-//    } else {
-//        qDebug() << "nie";
-//        return false;
-//    }
-//}
+void Client::sortVisitsByDate()
+{
+//    qSort(VisitList.begin(),VisitList.end(),Visit::myfunction);
+    std::sort (VisitList.begin(), VisitList.end(), myfunction);
+}
 
-//bool Symbol::operator==(Symbol& rhs)const{
-//cout << "operator overloaded == " << rhs.name;
-//if (this->name==rhs.name)
-//return true;
-//return false;
-//}
+
 

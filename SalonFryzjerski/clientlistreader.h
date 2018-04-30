@@ -12,6 +12,7 @@ public:
     QDomDocument getXMLDatabase() const;
     QList<Client*> getClientsList() const;
     void addNewClientToList(Client *newClient);
+    void removeClientFromList(Client *newClient);
 //    void updateClient(Client *newClient,int index);
 
     void updateXML();

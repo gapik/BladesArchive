@@ -16,6 +16,7 @@ public:
 
     QList<Service*> getServiceList() const;
     void addService(Service *service);
+    void removeAllServices();
 
     QDate getVisitDate() const;
     void setVisitDate(const QDate &date);

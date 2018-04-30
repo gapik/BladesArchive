@@ -11,6 +11,7 @@ editClient::editClient(QWidget *parent) :
     ui(new Ui::editClient)
 {
     ui->setupUi(this);
+    ui->PhoneField->setValidator(new QIntValidator(0, 999999999, this));
 }
 
 editClient::~editClient()
@@ -25,6 +26,12 @@ Ui::editClient *editClient::getUi() const
 
 void editClient::on_UpdateClientButton_clicked()
 {
+    if (!ui->PhoneField->text().isEmpty()){
+            if(ui->PhoneField->text().simplified().replace(" ","").split("").size()!= 11){
+            QMessageBox::warning(this,"Błędny numer telefonu!","Błędny numer telefonu");
+            return;
+        }
+    }
     //new to check if firstname and lastname is provided - else print messagebox
     QString fName;
     fName=ui->NameField->text().simplified();
@@ -73,7 +80,14 @@ void editClient::on_UpdateClientButton_clicked()
             lName.replace(0, 1, lName[0].toUpper());
         }
 
-        QString phoneNumber=ui->PhoneField->text();
+        QString phoneNumber;
+        if(!ui->PhoneField->text().isEmpty()){
+            QStringList formatting = ui->PhoneField->text().simplified().replace(" ","").split("");
+            phoneNumber=QString(formatting.at(1) + formatting.at(2) + formatting.at(3) + " " + formatting.at(4) + formatting.at(5) + formatting.at(6) + " " + formatting.at(7) + formatting.at(8) + formatting.at(9));
+        }else{
+            phoneNumber=QString(ui->PhoneField->text());
+        }
+
         QString comment=ui->CommentField->text();
         Client *newClient = getClientToEdit();
 
