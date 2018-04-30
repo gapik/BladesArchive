@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
     a.installTranslator(&baseTranslator);
 
     QFile file("workdirpath.txt");
+
     QString dir;
     if (!file.exists() || !file.open(QFile::ReadOnly | QFile::Text)) {
         dir = QFileDialog::getExistingDirectory(0, "Wskaż folder z bazą danych",

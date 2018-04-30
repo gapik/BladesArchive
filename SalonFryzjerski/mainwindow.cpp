@@ -102,64 +102,6 @@ void MainWindow::setProductReader(ProductListReader *reader)
 void MainWindow::on_ClientList_itemSelectionChanged()
 {
     updateTreeView();
-//    QStandardItemModel *model = new QStandardItemModel(this);
-//    model->setColumnCount(4);
-//    model->setHorizontalHeaderItem(1, new QStandardItem(tr("Sygnatura")));
-//    model->setHorizontalHeaderItem(2, new QStandardItem(tr("Ilość")));
-//    model->setHorizontalHeaderItem(3, new QStandardItem(tr("Cena")));
-
-//    QList<Client*> clients=getClientsReader()->getClientsList();
-//    for (int i=0;i<clients.count();i++){
-//        if (clients.at(i)->getFirstName() == ClientID.at(0) && clients.at(i)->getLastName() == ClientID.at(1)){
-//            QString label = clients.at(i)->getFirstName().append(" " + clients.at(i)->getLastName());
-//            if (!clients.at(i)->getPhoneNumber().isEmpty()){
-//                label = label.append(" (" + clients.at(i)->getPhoneNumber() + ")");
-//            }
-//            if (!clients.at(i)->getComment().isEmpty()){
-//                label = label.append(" [" + clients.at(i)->getComment() + "]");
-//            }
-//            model->setHorizontalHeaderItem(0, new QStandardItem(label));
-
-//            QList<Visit*> visits = clients.at(i)->getVisitList();
-//            model->setRowCount(visits.count());
-//            for(int j=0;j<visits.count();j++){
-
-//                QString priceException;
-//                QStandardItem *visitsItem = new QStandardItem( visits.at(j)->getVisitDateString() );
-//                if (visits.at(j)->getPrice() != 0){
-//                    priceException=QString::number(visits.at(j)->getPrice());
-//                }else{
-//                    priceException="brak danych";
-//                }
-//                QStandardItem *priceItem = new QStandardItem( priceException );
-//                visitsItem->setEditable(false);
-//                priceItem->setEditable(false);
-
-//                QList<Service*> services = visits.at(j)->getServiceList();
-//                for(int p=0;p<services.count();p++){
-//                    QStandardItem *serviceNameItem = new QStandardItem( services.at(p)->getName() );
-//                    serviceNameItem->setEditable(false);
-
-//                    visitsItem->appendRow( serviceNameItem );
-//                    QList<Product*> products = services.at(p)->getProductList();
-//                    for(int k=0;k<products.count();k++){
-//                        QStandardItem *productNameItem = new QStandardItem( products.at(k)->getName() );
-//                        QStandardItem *productSignatureItem = new QStandardItem( products.at(k)->getSignature() );
-//                        QStandardItem *productAmountItem = new QStandardItem( QString::number(products.at(k)->getAmount()) );
-//                        productNameItem->setEditable(false);
-//                        productSignatureItem->setEditable(false);
-//                        productAmountItem->setEditable(false);
-//                        serviceNameItem->appendRow(QList<QStandardItem *>() << productNameItem << productSignatureItem << productAmountItem );
-//                    }
-//                }
-//                model->setItem(j, 0, visitsItem);
-//                model->setItem(j, 3, priceItem);
-//            }
-//            i=clients.count();
-//        }
-//    }
-//    ui->treeView->setModel(model);
-//    ui->treeView->expandAll();
 }
 void MainWindow::on_addClient_clicked()
 {
